@@ -10,7 +10,7 @@ from tensorflow.python.keras import applications
 
 
 #Creacion de la red neuronal, red convulsional
-'''def mymodelo():
+def mymodelo():
     cnn = Sequential()  #varias capas apiladas sobre ella
     #Agregamos primera capa Convolucional con su respectivo pool
     cnn.add(Convolution2D(filtrosConv1, tamano_filtro1, padding ="same", input_shape=(longitud, altura, 3), activation='relu'))
@@ -27,7 +27,7 @@ from tensorflow.python.keras import applications
     cnn.add(Dropout(0.5)) #aqui le dicemos que durante el entrenamiento le apagamos el 50% de las neuronas a cada paso, se hace para evitar sobreajustar
     cnn.add(Dense(clases, activation='softmax')) #ultima capa, capa de output
     return cnn    
-'''
+
 #modelo de transfer learning 
 
 def tlmodel():
@@ -49,7 +49,7 @@ validation_data='./dataSet-simple/test'
 #Parametros
 
 epocas=20
-longitud, altura=224,224
+longitud, altura=100,100
 batch_size = 32 #numero de imagenes a procesar en cada uno de los pasos
 pasos = 1000  #es el numero de veces que se procesara la informacion en cada una de las epocas
 validation_steps = 300 #es el numero de veces que probaremos el algoritmo con los datos de validacion
@@ -87,7 +87,7 @@ validation_datagen = test_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='categorical') #este es el tipo de clasificacion
 
-cnn1=tlmodel()
+cnn1=mymodelo()
 cnn1.summary()
 cnn1.compile(loss='categorical_crossentropy',
             optimizer=optimizers.Adam(lr=lr),

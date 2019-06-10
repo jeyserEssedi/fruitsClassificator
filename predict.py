@@ -1,12 +1,15 @@
 import numpy as np
 from tensorflow.python.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.python.keras.models import load_model
+import os
+import glob
 
-longitud, altura = 224, 224
+longitud, altura = 100, 100
 modelo = './modelo/modelo.h5'
 pesos_modelo = './modelo/pesos.h5'
 cnn1 = load_model(modelo)
 cnn1.load_weights(pesos_modelo)
+test_images="./test_examples/*.jpg"
 
 def predict(file):
   x = load_img(file, target_size=(longitud, altura))
@@ -33,4 +36,8 @@ def predict(file):
     print("pred: Orange")                 
   return answer
 
-predict("Banana_002.jpg")  
+list_img=glob.glob(test_images)
+print(list_img)
+
+for imgs in list_img:
+  predict(imgs)
