@@ -1,8 +1,13 @@
+import tensorflow as tf
 import numpy as np
 from tensorflow.python.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.python.keras.models import load_model
 import os
 import glob
+
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+session = tf.Session(config=config)
 
 longitud, altura = 100, 100
 modelo = './modelo/modelo.h5'
@@ -16,24 +21,31 @@ def predict(file):
   x = img_to_array(x)
   x = np.expand_dims(x, axis=0)
   array = cnn1.predict(x)
-  print(array)
+ 
   result = array[0]
   answer = np.argmax(result)
+  print(file)
   print(answer)
   if answer == 0:
-    print("pred: Banana")
+    print("pred: Manzana")
   elif answer == 1:
-    print("pred: Kiwi")
+    print("pred: Banana")
   elif answer == 2:
-    print("pred: Lemon")
+    print("pred: Banana Lady Finger")
   elif answer == 3:
-    print("pred: Lime")
+    print("pred: Kiwi")
   elif answer == 4:
-    print("pred: Mango")  
+    print("pred: Lemon")  
   elif answer == 5:
-    print("pred: Melon")
+    print("pred: Lime")
   elif answer == 6:
-    print("pred: Orange")                 
+    print("pred: Mango")
+  elif answer == 7:
+    print("pred: Melon")     
+  elif answer == 8:
+    print("pred: Orange")
+  elif answer == 9:
+    print("pred: Tomate")                           
   return answer
 
 list_img=glob.glob(test_images)
